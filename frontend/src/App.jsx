@@ -3,12 +3,11 @@
 function App() {
 
   return (
-    <>
-      <div>
-        App
-      </div>
-    </>
+    <div>
+      app
+    </div>
   )
 }
+
 
 export default App
