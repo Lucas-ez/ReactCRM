@@ -15,9 +15,10 @@ namespace backend.Controllers
     {
         private readonly IConfiguration configuration;
         private readonly UsuarioService _users;
-        public AuthController(IConfiguration configuration)
+        public AuthController(IConfiguration configuration, UsuarioService usuarioService)
         {
             this.configuration = configuration;
+            _users = usuarioService;
         }
 
         [HttpPost("register")]
@@ -36,9 +37,7 @@ namespace backend.Controllers
         {
             var user = _users.GetByUsername(req.Username);
 
-            Console.WriteLine("Entra login");
-            if (user.Username != req.Username)
-            {
+            if (user == null || user.Username != req.Username) { 
                 return BadRequest("User not found.");
             }
 
@@ -54,9 +53,9 @@ namespace backend.Controllers
         private string CreateToken(Usuario user)
         {
             List<Claim> claims = new List<Claim>() {
-                new Claim(ClaimTypes.NameIdentifier, user.Username),
-                new Claim(ClaimTypes.Name, user.Nombre),
-                new Claim(ClaimTypes.Role, user.IsAdminRol ? "Admin" : "User")
+                new Claim("username", user.Username),
+                new Claim("name", user.Nombre),
+                new Claim("role", user.IsAdminRol ? "Admin" : "User")
             };
 
             var key = new SymmetricSecurityKey(
