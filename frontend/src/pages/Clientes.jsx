@@ -1,13 +1,39 @@
 import { DataGrid } from 'devextreme-react';
 import ODataStore from 'devextreme/data/odata/store';
 import { apiUrl } from './../config.json'
+import { Column, Editing, EmailRule, RequiredRule } from 'devextreme-react/data-grid';
 
 const Clientes = () => {
   return (
     <>
       Clientes
       <DataGrid dataSource={dataSource}>
-
+        <Editing 
+          mode='form'
+          allowAdding={true}
+          allowDeleting={true}
+          allowUpdating={true}
+          confirmDelete={true}
+          
+        />
+        <Column dataField='IdCliente' caption='Id' width={50} allowEditing={false}/>
+        <Column dataField='DNI' dataType='number'>
+          <RequiredRule />
+        </Column>
+        <Column dataField='Nombre'>
+          <RequiredRule />
+        </Column>
+        <Column dataField='Telefono'>
+          <RequiredRule />
+        </Column>
+        <Column dataField='Mail'>
+          <RequiredRule />
+          <EmailRule />
+        </Column>
+        <Column dataField='Direccion'>
+          <RequiredRule />
+        </Column>
+        <Column dataField='Observaciones'/>
       </DataGrid>
     </>
   )
@@ -22,9 +48,6 @@ const dataSource = {
     },
     version: 4
   }),
-  // select: [
-  //   'IdContrato',
-  // ]
 }
 
 export default Clientes
