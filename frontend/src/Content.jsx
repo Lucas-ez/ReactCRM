@@ -1,24 +1,17 @@
-import { useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { styled, useTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import { Button, Typography, Box, Drawer } from '@mui/material';
 import { useAuth } from './contexts/auth';
 import { useNavigate } from 'react-router-dom';
-import { Person } from '@mui/icons-material';
+import NavLinks from './navigation/NavLinks';
+import RouteContent from './navigation/RouteContent';
 
 const Header = ({ handleDrawerOpen, open, isLoged }) => {
 
@@ -31,6 +24,10 @@ const Header = ({ handleDrawerOpen, open, isLoged }) => {
     justifyContent: 'space-between',
   }), [])
 
+  const iconButtonStyles = useMemo(() => (
+    { mr: 2, ...(open && { display: 'none' }) }
+  ), [open])
+
   return ( 
     <AppBar position="fixed" open={open}>
       <Toolbar sx={toolbarStyles}>
@@ -40,7 +37,7 @@ const Header = ({ handleDrawerOpen, open, isLoged }) => {
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
-            sx={{ mr: 2, ...(open && { display: 'none' }) }}
+            sx={iconButtonStyles}
             >
             <MenuIcon />
           </IconButton>
@@ -61,9 +58,6 @@ const Header = ({ handleDrawerOpen, open, isLoged }) => {
 
 const SideBar = ({ open, handleDrawerClose}) => {
   const theme = useTheme();
-  const { user } = useAuth()
-
-  console.log( user );
 
   const drawerStyles = useMemo(() => ({
     width: drawerWidth,
@@ -86,36 +80,7 @@ const SideBar = ({ open, handleDrawerClose}) => {
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
         </DrawerHeader>
-        <Divider />
-        {
-          user && user.role === 'Admin' && (
-            <>
-              <List>
-                  <ListItem disablePadding>
-                    <ListItemButton>
-                      <ListItemIcon>
-                        <Person /> 
-                      </ListItemIcon>
-                      <ListItemText primary={'Usuarios'} />
-                    </ListItemButton>
-                  </ListItem>
-              </List>
-              <Divider />
-            </>
-          )
-        }
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
+        <NavLinks />
       </Drawer>
   )
 }
@@ -124,32 +89,30 @@ const Content = () => {
   const [open, setOpen] = useState(false);
   const { user } = useAuth()
 
-  const handleDrawerOpen = () => {
+  const handleDrawerOpen = useCallback(() => {
     setOpen(true);
-  };
+  }, [])
 
-  const handleDrawerClose = () => {
+  const handleDrawerClose = useCallback(() => {
     setOpen(false);
-  };
+  }, [])
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box display='flex'>
       <CssBaseline />
       <Header open={open} handleDrawerOpen={handleDrawerOpen} isLoged={ !!user }/>
       <SideBar open={open} handleDrawerClose={handleDrawerClose} />
       <Main open={open}>
-
         <DrawerHeader />
-        <Typography paragraph>
-          Content
-        </Typography>
-        
+        <RouteContent />
       </Main>
     </Box>
   )
 }
 
 const drawerWidth = 240;
+
+// -------------- Componentes estilizados --------------
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
