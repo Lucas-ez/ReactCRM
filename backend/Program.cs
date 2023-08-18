@@ -16,8 +16,10 @@ builder.Services.AddTransient<UsuarioService>();
 static IEdmModel GetEdmModel()
 {
     ODataConventionModelBuilder builder = new();
-    builder.EntitySet<Servicio>("Servicio");
-    builder.EntitySet<Cliente>("Cliente");
+    builder.EntitySet<Servicio>("Servicios");
+    builder.EntitySet<Usuario>("Usuarios");
+    builder.EntitySet<Cliente>("Clientes");
+    builder.EntitySet<Contrato>("Contratos");
     return builder.GetEdmModel();
 }
 
