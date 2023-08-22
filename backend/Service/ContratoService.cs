@@ -29,8 +29,23 @@ namespace backend.Service
                 .Where(c => c.IdContrato == id);
         }
 
-        public void Create(Contrato contrato)
+        public void Create(int idServicio, int idCliente)
         {
+            var cliente = _context.Cliente.AsQueryable()
+                .Where( c => c.IdCliente == idCliente).First();
+
+            var servicio = _context.Servicio.AsQueryable()
+                .Where( s => s.IdServicio == idServicio).First();
+
+            var contrato = new Contrato()
+            {
+                Cliente = cliente,
+                Servicio = servicio,
+                ClienteId = idCliente,
+                ServicioId = idServicio,
+            };
+
+
             _context.Contrato.Add(contrato);
             _context.SaveChanges();
         }
