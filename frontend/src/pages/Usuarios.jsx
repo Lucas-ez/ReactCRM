@@ -18,7 +18,10 @@ const Usuarios = () => {
   return (
     <>
       Usuarios
-      <DataGrid dataSource={dataSource}>
+      <DataGrid 
+        dataSource={dataSource}
+        showBorders={true}
+      >
 
       </DataGrid>
     </>

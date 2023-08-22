@@ -8,7 +8,10 @@ const Contratos = () => {
   return (
     <>
       Contratos
-      <DataGrid dataSource={dataSource}>
+      <DataGrid 
+        dataSource={dataSource}
+        showBorders={true}
+      >
         <Column dataField='IdContrato' caption='Id' width={50}/>
         <Column dataField='Cliente.DNI' caption='DNI'/>
         <Column dataField='Cliente.Nombre' caption='Cliente'/>

@@ -7,7 +7,10 @@ const Servicios = () => {
   return (
     <>
       Servicios
-      <DataGrid dataSource={dataSource}>
+      <DataGrid 
+        dataSource={dataSource}
+        showBorders={true}
+      >
         <Editing 
           allowAdding={true}
           allowUpdating={true}
