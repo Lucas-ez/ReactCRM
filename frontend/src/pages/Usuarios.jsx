@@ -1,4 +1,4 @@
-import { DataGrid } from 'devextreme-react';
+import { CheckBox, DataGrid } from 'devextreme-react';
 import ODataStore from 'devextreme/data/odata/store';
 import { apiUrl } from './../config.json'
 import { useAuth } from './../contexts/auth'
@@ -12,7 +12,6 @@ const Usuarios = () => {
 
   return (
     <>
-      Usuarios
       <DataGrid 
         dataSource={dataSource}
         showBorders={true}
@@ -32,9 +31,7 @@ const Usuarios = () => {
       <Column dataField='Password' >
         <RequiredRule />
       </Column>
-      <Column dataField='IsAdminRol' dataType='boolean' >
-        <RequiredRule />
-      </Column>
+      <Column dataField='IsAdminRol' dataType='boolean' caption='Admin' />
       </DataGrid>
     </>
   )

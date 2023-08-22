@@ -1,14 +1,12 @@
 import { DataGrid } from 'devextreme-react';
-import ODataStore from 'devextreme/data/odata/store';
-import { apiUrl } from './../config.json'
-import { Column, Editing, EmailRule, RequiredRule, Paging, FormItem } from 'devextreme-react/data-grid';
+import { Column, Editing, EmailRule, RequiredRule, Paging, FormItem, FilterRow } from 'devextreme-react/data-grid';
+import { clientes } from '../data/data';
 
 const Clientes = () => {
   return (
     <>
-      Clientes
       <DataGrid 
-        dataSource={dataSource}
+        dataSource={clientes}
         showBorders={true}
       >
         <Editing 
@@ -19,6 +17,7 @@ const Clientes = () => {
           confirmDelete={true}
           
         />
+        <FilterRow visible={true} />
         <Paging pageSize={10}/>
         <Column dataField='IdCliente' caption='Id' width={50} allowEditing={false}/>
         <Column dataField='DNI' dataType='number'>
@@ -45,15 +44,5 @@ const Clientes = () => {
   )
 }
 
-const dataSource = {
-  store: new ODataStore({
-    url: `${apiUrl}/odata/clientes`,
-    key: 'IdCliente',
-    keyType: {
-      IdContrato: 'Int32'
-    },
-    version: 4
-  }),
-}
 
 export default Clientes

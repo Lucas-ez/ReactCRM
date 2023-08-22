@@ -52,7 +52,6 @@ const Contratos = () => {
 
   return (
     <>
-      Contratos
       <DataGrid 
         dataSource={contratos}
         showBorders={true}
@@ -70,7 +69,7 @@ const Contratos = () => {
         <Column dataField='Servicio.Nombre' caption='Servicio' editCellComponent={servicioEditRender}>
           <RequiredRule />
         </Column>
-        <Column dataField='Cliente.DNI' caption='Cliente' editCellComponent={clienteEditRender}>
+        <Column dataField='Cliente.DNI' caption='Cliente' alignment='left' editCellComponent={clienteEditRender}>
           <RequiredRule />
         </Column>
       </DataGrid>
