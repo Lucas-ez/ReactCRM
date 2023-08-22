@@ -1,8 +1,8 @@
-import { CheckBox, DataGrid } from 'devextreme-react';
+import { DataGrid } from 'devextreme-react';
 import ODataStore from 'devextreme/data/odata/store';
 import { apiUrl } from './../config.json'
 import { useAuth } from './../contexts/auth'
-import { Column, Editing, FormItem, RequiredRule } from 'devextreme-react/data-grid';
+import { Column, Editing, RequiredRule } from 'devextreme-react/data-grid';
 
 const Usuarios = () => {
 
@@ -45,10 +45,7 @@ const dataSource = {
       IdContrato: 'String'
     },
     version: 4
-  }),
-  // select: [
-  //   'IdContrato',
-  // ]
+  })
 }
 
 export default Usuarios

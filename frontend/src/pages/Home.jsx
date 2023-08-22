@@ -1,10 +1,10 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { apiUrl } from './../config.json'
-import { Box, PieChart } from 'devextreme-react'
+import { PieChart } from 'devextreme-react'
 import { Connector, Font, Label, Series, Size } from 'devextreme-react/pie-chart'
 import httpService from '../services/httpService'
-import { Container, Paper, Stack, Typography } from '@mui/material'
-import { Link } from 'react-router-dom'
+import { Container, Stack } from '@mui/material'
+import CustomBox from '../components/CustomBox'
 
 const getInfo = async () => {
   // Obtengo servicios
@@ -26,32 +26,6 @@ const getInfo = async () => {
   )
 
   return contratos
-}
-
-const CustomBox = ({name}) => {
-
-  const colors = useMemo(() => ({
-    Servicios : '#e78683',
-    Clientes : '#97da97',
-    Contratos : '#839bda'
-  }), [])
-
-  console.log(colors[name]);
-
-  const styles = useMemo(() => ({
-    padding: '2rem',
-    backgroundColor: colors[name],
-  }), [])
-  
-  return (
-    <Link to={`/${name}`}>
-      <Paper sx={styles}>
-        <Typography fontSize={18} fontWeight={500} color='white'>
-          Ver {name}
-        </Typography>
-      </Paper>
-    </Link>
-  )
 }
 
 const Home = () => {

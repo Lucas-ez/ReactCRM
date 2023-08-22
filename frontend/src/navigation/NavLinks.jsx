@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react'
-import { Divider, Typography } from '@mui/material'
+import { Divider } from '@mui/material'
 import { List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
 import { useAuth } from '../contexts/auth'
 import { Link } from 'react-router-dom'
-import { PeopleAlt, Home, ManageAccounts, ElectricalServices, Article } from '@mui/icons-material'
+import { PeopleAlt, Home, ManageAccounts, ElectricalServices, Article, Person } from '@mui/icons-material'
 
 const NavLinks = () => {
   const { user } = useAuth()
@@ -48,6 +48,17 @@ const NavLinks = () => {
         ))}
       </List>
       <Divider />
+      <Link to={'/cuenta'}>
+        <ListItem disablePadding>
+          <ListItemButton>
+            <ListItemIcon>
+              <Person /> 
+            </ListItemIcon>
+            <ListItemText primary='Mi Cuenta'/>
+          </ListItemButton>
+        </ListItem>
+      </Link>
+      <Divider />
       {
         user && user.role === 'Admin' && (
           <>
@@ -67,6 +78,7 @@ const NavLinks = () => {
           </>
         )
       }
+
     </>
   )
 }

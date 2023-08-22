@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react'
 import { DataGrid, SelectBox } from 'devextreme-react'
-import { Column, Editing, FilterRow, HeaderFilter, Paging, RequiredRule, Search } from 'devextreme-react/data-grid'
+import { Column, Editing, FilterRow, HeaderFilter, Paging, RequiredRule } from 'devextreme-react/data-grid'
 import { servicios, contratos, clientes } from '../data/data'
 
 const Contratos = () => {

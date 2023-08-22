@@ -1,17 +1,14 @@
 
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Form, { SimpleItem, RequiredRule, ButtonItem } from 'devextreme-react/form';
-import { useCallback, useMemo, useState } from 'react';
+import Form, { SimpleItem, ButtonItem } from 'devextreme-react/form';
+import { useCallback, useMemo } from 'react';
 import { useAuth } from './contexts/auth';
-import { useNavigate } from 'react-router-dom';
 
 const defaultTheme = createTheme();
 
@@ -25,10 +22,7 @@ const passwordOptions = {
 }
 
 export default function UnauthenticatedContent() {
-
-  const navigate = useNavigate();
   const { signIn } = useAuth()
-  const [error, setError] = useState()
 
   const buttonOptions = useMemo(()=> ({
     text: 'Submit',
