@@ -13,6 +13,7 @@ const Contratos = () => {
         showBorders={true}
       >
         <Column dataField='IdContrato' caption='Id' width={50}/>
+        {/* Ver Lockups en DataGrid/Editing/CascadingLookups  */}
         <Column dataField='Cliente.DNI' caption='DNI'/>
         <Column dataField='Cliente.Nombre' caption='Cliente'/>
         <Column dataField='Servicio.Nombre' caption='Servicio'/>

@@ -1,7 +1,7 @@
 import { DataGrid } from 'devextreme-react';
 import ODataStore from 'devextreme/data/odata/store';
 import { apiUrl } from './../config.json'
-import { Column, Editing, EmailRule, RequiredRule, Paging } from 'devextreme-react/data-grid';
+import { Column, Editing, EmailRule, RequiredRule, Paging, FormItem } from 'devextreme-react/data-grid';
 
 const Clientes = () => {
   return (
@@ -37,7 +37,9 @@ const Clientes = () => {
         <Column dataField='Direccion'>
           <RequiredRule />
         </Column>
-        <Column dataField='Observaciones'/>
+        <Column dataField='Observaciones'>
+          <FormItem colSpan={2} editorType='dxTextArea'/>
+        </Column>
       </DataGrid>
     </>
   )
