@@ -1,29 +1,20 @@
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
-import { Paper, Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 
 const CustomBox = ({name}) => {
 
-  const colors = useMemo(() => ({
-    Servicios : '#e78683',
-    Clientes : '#97da97',
-    Contratos : '#839bda'
-  }), [])
-
-  console.log(colors[name]);
-
   const styles = useMemo(() => ({
-    padding: '2rem',
-    backgroundColor: colors[name],
+    padding: '1.6rem',
   }), [])
   
   return (
     <Link to={`/${name}`}>
-      <Paper sx={styles}>
-        <Typography fontSize={18} fontWeight={500} color='white'>
+      <Button variant="outlined" sx={styles}>
+        <Typography>
           Ver {name}
         </Typography>
-      </Paper>
+      </Button>
     </Link>
   )
 }

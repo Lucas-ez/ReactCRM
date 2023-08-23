@@ -1,78 +1,36 @@
-import React, { useEffect, useState } from 'react'
-import { apiUrl } from './../config.json'
-import { PieChart } from 'devextreme-react'
-import { Connector, Font, Label, Series, Size } from 'devextreme-react/pie-chart'
-import httpService from '../services/httpService'
 import { Container, Stack } from '@mui/material'
 import CustomBox from '../components/CustomBox'
-
-const getInfo = async () => {
-  // Obtengo servicios
-  const res = await httpService.get(`${apiUrl}/odata/servicios`)
-  const servicios = res.data.value
-
-  // Por cada servicio obtengo la cantidad de contratos con ese servicio
-  const contratos = await Promise.all( 
-    servicios.map( async servicio => {
-      const res = await httpService
-        .get(`${apiUrl}/odata/contratos?%24select=IdContrato&%24expand=Servicio&%24filter=Servicio%2FNombre%20eq%20%27${servicio.Nombre}%27&%24count=true`)
-      
-      const qty = res.data['@odata.count']
-      return {
-        "Nombre" : servicio.Nombre,
-        "Cantidad" : qty
-      };
-    })
-  )
-
-  return contratos
-}
+import ServiciosPieChart from '../components/ServiciosPieChart'
+import InfoBarChart from '../components/InfoBarChart'
 
 const Home = () => {
 
-  const [info, setInfo] = useState();
-
-  useEffect(() => {
-    getInfo().then(res => setInfo(res))
-  }, [])
-
   return (
-    <Container>
+    <>
       <Stack 
         display='flex'
         flexDirection='column'
         justifyContent='space-between'
         alignItems='center'
+        gap={2}
       >
+        <Stack display='flex' flexDirection='row' paddingTop={6} gap={8}>
+          <ServiciosPieChart />
+          <InfoBarChart />
+        </Stack>
         <Stack 
           display='flex'
           flexDirection='row'
           gap={12}
-          paddingTop={2}
-          paddingBottom={6}
+          paddingTop={6}
+          paddingBottom={2}
         >
           <CustomBox name='Servicios'/>
           <CustomBox name='Clientes'/>
           <CustomBox name='Contratos'/>
         </Stack>
-        <PieChart
-          dataSource={info}
-          palette="Soft Blue"
-          title='Cantidad de contratos por servicio'
-          >
-          <Series
-            argumentField='Nombre'
-            valueField='Cantidad'
-            >
-            <Label visible={true}>
-              <Font size={12}/>
-              <Connector visible={true} width={1}/>
-            </Label>
-          </Series>
-          <Size width={800}/>
-        </PieChart>
       </Stack>
-    </Container>
+    </>
   )
 }
 
