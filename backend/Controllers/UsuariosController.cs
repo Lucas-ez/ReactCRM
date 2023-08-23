@@ -1,6 +1,7 @@
 ﻿using backend.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Deltas;
 using Microsoft.AspNetCore.OData.Formatter;
 using Microsoft.AspNetCore.OData.Query;
 
@@ -72,6 +73,27 @@ namespace backend.Controllers
                 Console.WriteLine(ex.ToString());
                 return BadRequest();
             }
+        }
+
+        [HttpPatch]
+        public IActionResult Patch([FromODataUri] string key, [FromBody] Delta<Usuario> usuarioPatch)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            Usuario usuarioToEdit = _context.Usuario.AsQueryable().Where(u => u.Username == key).First();
+        
+            if(usuarioToEdit == null)
+            {
+                return NotFound();
+            }
+            usuarioPatch.Patch(usuarioToEdit);
+            _context.Usuario.Update(usuarioToEdit);
+            _context.SaveChanges();
+
+            return NoContent();
         }
     }
 }
